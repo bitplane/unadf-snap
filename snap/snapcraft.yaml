@@ -1,6 +1,7 @@
-name: unadf
+name: bitplane-unadf
 base: core24
 version: '0.10.5'
+title: unadf
 summary: Extract files from Amiga ADF disk images
 description: |
   unadf is a command-line utility for extracting files from Amiga Disk File
@@ -8,21 +9,31 @@ description: |
   of the Amiga filesystem.
 
   Upstream: https://github.com/adflib/ADFlib
+license: GPL-2.0-or-later
+contact: https://github.com/bitplane/unadf-snap/issues
+issues: https://github.com/bitplane/unadf-snap/issues
+source-code: https://github.com/bitplane/unadf-snap
+website: https://github.com/adflib/ADFlib
 grade: stable
-confinement: classic
+confinement: strict
 
 parts:
   adflib:
     plugin: cmake
-    source: https://github.com/adflib/ADFlib.git
-    source-tag: v0.10.5
+    source: https://github.com/adflib/ADFlib/archive/refs/tags/v0.10.5.tar.gz
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_TESTING=OFF
     build-packages:
       - gcc
+      - git
       - make
+
 
 apps:
   unadf:
     command: usr/bin/unadf
+    plugs:
+      - home
+      - removable-media
