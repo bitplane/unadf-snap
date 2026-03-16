@@ -1,0 +1,28 @@
+name: unadf
+base: core24
+version: '0.10.5'
+summary: Extract files from Amiga ADF disk images
+description: |
+  unadf is a command-line utility for extracting files from Amiga Disk File
+  (.adf) dumps. Powered by ADFlib, a free, portable and open implementation
+  of the Amiga filesystem.
+
+  Upstream: https://github.com/adflib/ADFlib
+grade: stable
+confinement: classic
+
+parts:
+  adflib:
+    plugin: cmake
+    source: https://github.com/adflib/ADFlib.git
+    source-tag: v0.10.5
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+    build-packages:
+      - gcc
+      - make
+
+apps:
+  unadf:
+    command: usr/bin/unadf
